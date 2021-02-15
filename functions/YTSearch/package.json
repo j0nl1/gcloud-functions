@@ -1,11 +1,9 @@
 {
   "name": "yt-search",
   "scripts": {
-    "build:dev": "rimraf lib && tsc --build",
-    "build:prod": "rimraf lib && tsc -p tsconfig.prod.json",
-    "start": "npm run build:dev && node -r yamlenv/config node_modules/@google-cloud/functions-framework --target=youtubeSearch [--signature-type=http]",
-    "test": "jest --watch",
-    "deploy": "npm run build:prod && gcloud functions deploy YTSearch --runtime nodejs12 --entry-point youtubeSearch --trigger-http --allow-unauthenticated --env-vars-file ./env.yaml"
+    "start": "nodemon",
+    "build": "tsc -p tsconfig.prod.json",
+    "deploy": "npm run build && gcloud functions deploy YTSearch --runtime nodejs12 --entry-point youtubeSearch --trigger-http --allow-unauthenticated --env-vars-file ./env.yaml"
   },
   "engines": {
     "node": "<12"
@@ -26,10 +24,25 @@
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
     "node-mocks-http": "^1.10.1",
-    "rimraf": "^3.0.2",
+    "nodemon": "^2.0.7",
     "ts-jest": "^26.5.1",
+    "ts-node": "^9.1.1",
     "typescript": "^3.9.9",
     "yamlenv": "^1.0.0"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git"
+    ],
+    "exec": "ts-node -r yamlenv/config node_modules/@google-cloud/functions-framework --target=youtubeSearch --source=./src/index.ts [--signature-type=http]",
+    "watch": [
+      "src",
+      "*lock"
+    ],
+    "ext": "js,json,ts"
   },
   "jest": {
     "rootDir": "src",

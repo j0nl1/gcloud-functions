@@ -4,4 +4,5 @@ tsconfig*
 .prettierrc
 .gcloudignore
 .eslintrc
+.vscode
 src
