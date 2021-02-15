@@ -1,0 +1,7 @@
+env*
+node_modules
+tsconfig*
+.prettierrc
+.gcloudignore
+.eslintrc
+src
