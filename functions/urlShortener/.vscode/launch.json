@@ -1,0 +1,21 @@
+{ 
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug YTSearch Function",
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+        "restart": true,
+        "protocol": "inspector",
+        "runtimeArgs": [
+        "-r",
+        "yamlenv/config",
+          "${workspaceRoot}/node_modules/@google-cloud/functions-framework",
+          "--target=urlShortener",
+          "--source=./src/index.ts",
+          "[--signature-type=http]"
+        ]
+      }
+    ]
+  }
